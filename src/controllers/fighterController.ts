@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { battleService } from '../services/fighterService.js'
+import { battleService, rankingService } from '../services/fighterService.js'
 
 async function battle(req: Request, res: Response) {
     const { firstUser, secondUser } = req.body
@@ -9,4 +9,10 @@ async function battle(req: Request, res: Response) {
     res.status(200).send(result)
 }
 
-export { battle }
+async function ranking(_: any, res: Response) {
+    const ranking = await rankingService()
+
+    res.status(200).send({ fighters: ranking })
+}
+
+export { battle, ranking }
