@@ -104,14 +104,6 @@ async function battleService(firstUser: string, secondUser: string): Promise<Res
     const { data: firstGitUser } = await axios.get(`https://api.github.com/users/${firstUser}/repos`)
     const { data: secondGitUser } = await axios.get(`https://api.github.com/users/${secondUser}/repos`)
 
-    if(firstGitUser.message && firstGitUser === 'Not Found' 
-    || secondGitUser.message && secondGitUser === 'Not Found') {
-        throw {
-            type: 'error_user_not_found',
-            message: 'This git hub user was not found'
-        }
-    }
-
     const { firstUserStarsCount, secondUserStarsCount } = calculateStars(firstGitUser, secondGitUser)
 
     const { firstUserFounded, secondUserFounded } = await foundUsersOrInsert(firstUser, secondUser)
